@@ -28,23 +28,24 @@ app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/assets')
+        cb(null, 'public/assets');
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
+        cb(null, file.originalname);
+    },
+});
 
-const upload = multer({storage})
+const upload = multer({ storage });
 
 // Mongoose Setup
 
 const PORT = process.env.PORT || 6001;
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => {
-        app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
+mongoose
+    .connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
     })
-    .catch( (error) => console.log(`${error} did not connect`));
+    .then(() => {
+        app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    })
+    .catch((error) => console.log(`${error} did not connect`));
